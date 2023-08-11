@@ -8,7 +8,13 @@ const manifest = defineManifest({
   version: '0.0.1',
   action: {
     default_popup: 'index.html',
-  }
+  },
+  content_scripts: [
+    {
+      js: ['src/content.tsx'],
+      matches: ['https://github.com/*']
+    },
+  ],
 })
 
 // https://vitejs.dev/config/
