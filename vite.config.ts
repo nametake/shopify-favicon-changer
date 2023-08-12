@@ -15,6 +15,10 @@ const manifest = defineManifest({
       js: ['src/content.tsx'],
       matches: ['https://*.shopify.com/*', 'https://example.com/*']
     },
+    {
+      js: ['src/contents/partners.ts'],
+      matches: ['https://partners.shopify.com/*']
+    },
   ],
 })
 
