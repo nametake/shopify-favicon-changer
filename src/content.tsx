@@ -2,6 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
+import defaultIcon from './assets/default.ico'
+import reactLogo from './assets/react.svg'
+import { share } from './share'
+
+share()
 
 const root = document.createElement("div");
 root.id = "crx-root";
@@ -15,7 +20,10 @@ if (!link) {
   link.rel = 'icon';
   document.head.appendChild(link);
 }
-link.href = 'https://stackoverflow.com/favicon.ico';
+link.href = chrome.runtime.getURL(reactLogo);
+
+console.log(defaultIcon)
+console.log(chrome.runtime.getURL(defaultIcon))
 
 ReactDOM.createRoot(root).render(
   <React.StrictMode>

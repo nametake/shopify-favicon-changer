@@ -12,7 +12,7 @@ const manifest = defineManifest({
   content_scripts: [
     {
       js: ['src/content.tsx'],
-      matches: ['https://github.com/*']
+      matches: ['https://*.shopify.com/*', 'https://example.com/*']
     },
   ],
 })
