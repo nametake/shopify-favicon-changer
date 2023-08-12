@@ -13,12 +13,16 @@ const manifest = defineManifest({
   },
   content_scripts: [
     {
-      js: ['src/content.tsx'],
-      matches: ['https://*.shopify.com/*', 'https://example.com/*']
+      js: ['src/contents/admin.ts'],
+      matches: ['https://admin.shopify.com/*']
     },
     {
       js: ['src/contents/partners.ts'],
       matches: ['https://partners.shopify.com/*']
+    },
+    {
+      js: ['src/contents/dev.ts'],
+      matches: ['https://shopify.dev/*']
     },
   ],
 })
