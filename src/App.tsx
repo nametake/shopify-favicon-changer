@@ -15,7 +15,7 @@ type LabelCellProps = { children: ReactNode };
 export const LabelCell = function LabelCell({
   children,
 }: LabelCellProps): JSX.Element {
-  return <div className="col-span-4 flex items-center">{children}</div>;
+  return <div className="col-span-4 flex items-center text-base">{children}</div>;
 };
 
 type SectionCellProps = { children: ReactNode };
@@ -67,10 +67,7 @@ function App() {
   return (
     <div className="w-96 px-8 py-4">
       <Grid>
-        <SectionCell>
-          <div className="text-lg">Shopify Favicon Changer</div>
-        </SectionCell>
-        <LabelCell><span>Shopify Partners</span></LabelCell>
+        <LabelCell>Shopify Partners</LabelCell>
         <SelectCell>
           <Select
             value={options.find((o) => o.value === store.partnerIcon)}
@@ -86,9 +83,6 @@ function App() {
             onChange={onChangeDevIcon}
           />
         </SelectCell>
-        <SectionCell>
-          <div className="text-base">Store Admin</div>
-        </SectionCell>
         <LabelCell>Store Admin Default</LabelCell>
         <SelectCell>
           <Select
@@ -97,6 +91,9 @@ function App() {
             onChange={onChangeAdminDefaultIcon}
           />
         </SelectCell>
+        <SectionCell>
+          <div className="text-base">Stores</div>
+        </SectionCell>
       </Grid>
     </div>
   );
