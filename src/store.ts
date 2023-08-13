@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { IconType, isIconType } from '@/types';
 
 const STORAGE_KEY = 'SHOPIFY_FAVICON_CHANGER_STORAGE';
@@ -10,7 +11,7 @@ type StoreIcon = {
 export type Store = {
   partnerIcon: IconType;
   devIcon: IconType;
-  adminDefault: IconType;
+  adminDefaultIcon: IconType;
   storeIcons: StoreIcon[];
 };
 
@@ -23,7 +24,7 @@ const isAdminIcon = (data: { [key: string]: unknown }) => {
 const isStore = (data: { [key: string]: unknown }): data is Store => {
   if (!isIconType(data.partnerIcon)) return false;
   if (!isIconType(data.devIcon)) return false;
-  if (!isIconType(data.adminDefault)) return false;
+  if (!isIconType(data.adminDefaultIcon)) return false;
   const storeIcons = data.storeIcons;
   if (!Array.isArray(storeIcons)) return false;
   if (!storeIcons.every(isAdminIcon)) return false;
@@ -33,18 +34,36 @@ const isStore = (data: { [key: string]: unknown }): data is Store => {
 export const initStore: Store = {
   partnerIcon: 'RED',
   devIcon: 'BLUE',
-  adminDefault: 'ORANGE',
+  adminDefaultIcon: 'ORANGE',
   storeIcons: [],
 };
 
-export const getStore = async (): Promise<Store> => {
-  const store = await chrome.storage.session.get(STORAGE_KEY);
+const getStore = async (): Promise<Store> => {
+  const store = (await chrome.storage.sync.get([STORAGE_KEY]))[STORAGE_KEY];
   if (!isStore(store)) {
     return initStore;
   }
   return store;
 };
 
-export const setStore = (store: Store) => {
-  return chrome.storage.session.set(store);
+export const useStore = () => {
+  const [store, setStore] = useState<Store>(initStore);
+  chrome.storage.onChanged.addListener((changes) => {
+    const next = changes[STORAGE_KEY]?.newValue;
+    if (!next) return;
+    setStore((prev) => ({ ...prev, ...next }));
+  });
+
+  useEffect(() => {
+    (async () => {
+      setStore(await getStore());
+    })();
+  }, []);
+
+  return {
+    store,
+    set: (fn: (store: Store) => Store) => {
+      chrome.storage.sync.set({ [STORAGE_KEY]: fn(store) });
+    },
+  };
 };
