@@ -7,7 +7,7 @@ import { useStore } from '@/store';
 type GridProps = { children: React.ReactNode };
 
 export const Grid = function Table({ children }: GridProps): JSX.Element {
-  return <div className="grid grid-cols-6">{children}</div>;
+  return <div className="grid grid-cols-6 gap-y-2">{children}</div>;
 };
 
 type LabelCellProps = { children: ReactNode };
@@ -16,6 +16,14 @@ export const LabelCell = function LabelCell({
   children,
 }: LabelCellProps): JSX.Element {
   return <div className="col-span-4 flex items-center">{children}</div>;
+};
+
+type SectionCellProps = { children: ReactNode };
+
+export const SectionCell = function SectionCell({
+  children,
+}: SectionCellProps): JSX.Element {
+  return <div className="col-span-6">{children}</div>;
 };
 
 type SelectCellProps = { children: ReactNode };
@@ -59,7 +67,10 @@ function App() {
   return (
     <div className="w-96 px-8 py-4">
       <Grid>
-        <LabelCell>Shopify Partners</LabelCell>
+        <SectionCell>
+          <div className="text-lg">Shopify Favicon Changer</div>
+        </SectionCell>
+        <LabelCell><span>Shopify Partners</span></LabelCell>
         <SelectCell>
           <Select
             value={options.find((o) => o.value === store.partnerIcon)}
@@ -75,7 +86,10 @@ function App() {
             onChange={onChangeDevIcon}
           />
         </SelectCell>
-        <LabelCell>Admin default</LabelCell>
+        <SectionCell>
+          <div className="text-base">Store Admin</div>
+        </SectionCell>
+        <LabelCell>Store Admin Default</LabelCell>
         <SelectCell>
           <Select
             value={options.find((o) => o.value === store.adminDefaultIcon)}
