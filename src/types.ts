@@ -6,8 +6,7 @@ export type IconType =
   | 'PURPLE'
   | 'RED'
   | 'SKYBLUE'
-  | 'YELLOW'
-
+  | 'YELLOW';
 
 export const isIconType = (type: unknown): type is IconType => {
   switch (type) {
@@ -19,9 +18,8 @@ export const isIconType = (type: unknown): type is IconType => {
     case 'RED':
     case 'SKYBLUE':
     case 'YELLOW':
-      return true
+      return true;
     default:
-      return false
+      return false;
   }
-}
-
+};

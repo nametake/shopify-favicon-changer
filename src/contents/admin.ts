@@ -1,4 +1,4 @@
-import orangeIcon from '@/assets/orange.png'
+import orangeIcon from '@/assets/orange.png';
 
 const link = document.querySelector("link[rel~='icon']");
 if (link instanceof HTMLLinkElement) {
