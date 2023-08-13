@@ -25,15 +25,14 @@ type IconImgProps = {
 }
 
 export const IconImg = function IconImg({ type, src, }: IconImgProps): JSX.Element {
-  return <img className="h-6" src={src} alt={type.toLowerCase()} />
+  return <img className="h-4" src={src} alt={type.toLowerCase()} />
 }
-
 
 type IconProps = {
   type: IconType
 }
 
-function Icon({ type }: IconProps) {
+export function Icon({ type }: IconProps) {
   switch (type) {
     case 'BLUE':
       return <IconImg type={type} src={blueIcon} />
@@ -54,6 +53,24 @@ function Icon({ type }: IconProps) {
   }
 }
 
+type GridProps = { children: React.ReactNode }
+
+export const Grid = function Table({ children }: GridProps): JSX.Element {
+  return <div className="grid grid-cols-6">{children}</div>
+}
+
+type LabelCellProps = { children: React.ReactNode }
+
+export const LabelCell = function LabelCell({ children }: LabelCellProps): JSX.Element {
+  return <div className="col-span-4 flex items-center">{children}</div>
+}
+
+type SelectCellProps = { children: React.ReactNode }
+
+export const SelectCell = function SelectCell({ children }: SelectCellProps): JSX.Element {
+  return <div className="col-span-2">{children}</div>
+}
+
 const options: { value: IconType, label: JSX.Element }[] = [
   { value: 'BLUE', label: <Icon type="BLUE" /> },
   { value: 'ORANGE', label: <Icon type="ORANGE" /> },
@@ -67,14 +84,14 @@ const options: { value: IconType, label: JSX.Element }[] = [
 function App() {
   return (
     <div className="w-96 px-8 py-4">
-      <div className="grid grid-cols-6">
-        <div className="col-span-4 flex items-center">Shopify Partners</div>
-        <div className="col-span-2"><Select options={options} /></div>
-        <div className="col-span-4 flex items-center">.dev</div>
-        <div className="col-span-2"><Select options={options} /></div>
-        <div className="col-span-4 flex items-center">Store</div>
-        <div className="col-span-2"><Select options={options} /></div>
-      </div>
+      <Grid>
+        <LabelCell>Shopify Partners</LabelCell>
+        <SelectCell><Select options={options} /></SelectCell>
+        <LabelCell>.dev</LabelCell>
+        <SelectCell><Select options={options} /></SelectCell>
+        <LabelCell>Store</LabelCell>
+        <SelectCell><Select options={options} /></SelectCell>
+      </Grid>
     </div>
   )
 }
