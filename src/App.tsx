@@ -7,7 +7,7 @@ import { useStore } from '@/store';
 type GridProps = { children: React.ReactNode };
 
 export const Grid = function Table({ children }: GridProps): JSX.Element {
-  return <div className="grid grid-cols-6 gap-y-2">{children}</div>;
+  return <div className="grid grid-cols-6 gap-y-2 gap-x-1">{children}</div>;
 };
 
 type LabelCellProps = { children: ReactNode };
@@ -33,6 +33,18 @@ export const SelectCell = function SelectCell({
 }: SelectCellProps): JSX.Element {
   return <div className="col-span-2">{children}</div>;
 };
+
+type DeleteButtonCellProps = { children: ReactNode }
+
+export const DeleteButtonCell = function DeleteButtonCell({ children }: DeleteButtonCellProps): JSX.Element {
+  return <div className="col-span-1 flex items-center">{children}</div>;
+}
+
+type InputCellProps = { children: ReactNode }
+
+export const InputCell = function InputCell({ children }: InputCellProps): JSX.Element {
+  return <div className="col-span-3">{children}</div>;
+}
 
 type Option = { value: IconType; label: ReactNode };
 
@@ -75,7 +87,7 @@ function App() {
             onChange={onChangePartnerIcon}
           />
         </SelectCell>
-        <LabelCell>.dev</LabelCell>
+        <LabelCell>Shopify Dev</LabelCell>
         <SelectCell>
           <Select
             value={options.find((o) => o.value === store.devIcon)}
@@ -94,6 +106,21 @@ function App() {
         <SectionCell>
           <div className="text-base">Stores</div>
         </SectionCell>
+        <>
+          <DeleteButtonCell>
+            <button className="bg-rose-50 hover:bg-rose-100 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">x</button>
+          </DeleteButtonCell>
+          <InputCell>
+            <input className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" />
+          </InputCell>
+          <SelectCell>
+            <Select
+              value={options.find((o) => o.value === store.adminDefaultIcon)}
+              options={options}
+              onChange={onChangeAdminDefaultIcon}
+            />
+          </SelectCell>
+        </>
       </Grid>
     </div>
   );
