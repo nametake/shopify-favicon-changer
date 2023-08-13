@@ -6,18 +6,9 @@ import purpleIcon from '@/assets/purple.png'
 import redIcon from '@/assets/red.png'
 import skyblueIcon from '@/assets/skyblue.png'
 import yellowIcon from '@/assets/yellow.png'
+import { IconType } from '@/type'
 
 const assertNever = (value: never): never => { throw new Error(`Unexpected value: ${value}`) }
-
-type IconType =
-  | 'BLUE'
-  | 'ORANGE'
-  | 'PINK'
-  | 'PURPLE'
-  | 'RED'
-  | 'SKYBLUE'
-  | 'YELLOW'
-
 
 type IconImgProps = {
   type: IconType;
@@ -89,7 +80,7 @@ function App() {
         <SelectCell><Select options={options} /></SelectCell>
         <LabelCell>.dev</LabelCell>
         <SelectCell><Select options={options} /></SelectCell>
-        <LabelCell>Store</LabelCell>
+        <LabelCell>Admin</LabelCell>
         <SelectCell><Select options={options} /></SelectCell>
       </Grid>
     </div>

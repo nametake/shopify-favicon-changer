@@ -11,6 +11,7 @@ const manifest = defineManifest({
     default_popup: 'index.html',
     default_icon: 'icon.png'
   },
+  permissions: ['storage'],
   content_scripts: [
     {
       js: ['src/contents/admin.ts'],
