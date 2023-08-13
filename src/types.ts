@@ -1,4 +1,5 @@
 export type IconType =
+  | 'DEFAULT'
   | 'BLUE'
   | 'ORANGE'
   | 'PINK'
@@ -10,6 +11,7 @@ export type IconType =
 
 export const isIconType = (type: unknown): type is IconType => {
   switch (type) {
+    case 'DEFAULT':
     case 'BLUE':
     case 'ORANGE':
     case 'PINK':

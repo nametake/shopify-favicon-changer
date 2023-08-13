@@ -13,7 +13,7 @@ type IconImgProps = {
   src: string;
 }
 
-export const IconImg = function IconImg({ type, src, }: IconImgProps): JSX.Element {
+const IconImg = function IconImg({ type, src, }: IconImgProps): JSX.Element {
   return <img className="h-4" src={src} alt={type.toLowerCase()} />
 }
 
@@ -23,6 +23,8 @@ type IconProps = {
 
 export function Icon({ type }: IconProps) {
   switch (type) {
+    case 'DEFAULT':
+      return 'DEFAULT'
     case 'BLUE':
       return <IconImg type={type} src={blueIcon} />
     case 'ORANGE':

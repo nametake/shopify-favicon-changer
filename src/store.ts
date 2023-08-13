@@ -30,7 +30,7 @@ const isStore = (data: { [key: string]: unknown }): data is Store => {
   return true
 }
 
-const initStore: Store = {
+export const initStore: Store = {
   partnerIcon: 'RED',
   devIcon: 'BLUE',
   adminDefault: 'ORANGE',
