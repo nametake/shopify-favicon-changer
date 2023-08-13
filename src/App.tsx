@@ -104,6 +104,18 @@ function App() {
       }));
     };
 
+  const onChangeStoreIconFn =
+    (index: number) => (option: SingleValue<Option>) => {
+      const { value } = option ?? {};
+      if (!value) return;
+      set((store) => ({
+        ...store,
+        storeIcons: store.storeIcons.map((storeIcon, i) =>
+          i === index ? { ...storeIcon, type: value } : storeIcon,
+        ),
+      }));
+    };
+
   const onClickDeleteFn = (index: number) => () => {
     set((store) => ({
       ...store,
@@ -116,7 +128,6 @@ function App() {
       <Grid>
         <LabelCell>Shopify Partners</LabelCell>
         <SelectCell>
-          {' '}
           <Select
             value={options.find((o) => o.value === store.partnerIcon)}
             options={options}
@@ -164,7 +175,7 @@ function App() {
               <Select
                 value={options.find((o) => o.value === storeIcon.type)}
                 options={options}
-                onChange={onChangeAdminDefaultIcon}
+                onChange={onChangeStoreIconFn(index)}
               />
             </SelectCell>
           </React.Fragment>
