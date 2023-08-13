@@ -3,6 +3,7 @@ import { IconType } from '@/types';
 import { Icon } from '@/Icon';
 import { ReactNode } from 'react';
 import { useStore } from '@/store';
+import React from 'react';
 
 type GridProps = { children: React.ReactNode };
 
@@ -15,7 +16,9 @@ type LabelCellProps = { children: ReactNode };
 export const LabelCell = function LabelCell({
   children,
 }: LabelCellProps): JSX.Element {
-  return <div className="col-span-4 flex items-center text-base">{children}</div>;
+  return (
+    <div className="col-span-4 flex items-center text-base">{children}</div>
+  );
 };
 
 type SectionCellProps = { children: ReactNode };
@@ -34,17 +37,21 @@ export const SelectCell = function SelectCell({
   return <div className="col-span-2">{children}</div>;
 };
 
-type DeleteButtonCellProps = { children: ReactNode }
+type DeleteButtonCellProps = { children: ReactNode };
 
-export const DeleteButtonCell = function DeleteButtonCell({ children }: DeleteButtonCellProps): JSX.Element {
+export const DeleteButtonCell = function DeleteButtonCell({
+  children,
+}: DeleteButtonCellProps): JSX.Element {
   return <div className="col-span-1 flex items-center">{children}</div>;
-}
+};
 
-type InputCellProps = { children: ReactNode }
+type InputCellProps = { children: ReactNode };
 
-export const InputCell = function InputCell({ children }: InputCellProps): JSX.Element {
+export const InputCell = function InputCell({
+  children,
+}: InputCellProps): JSX.Element {
   return <div className="col-span-3">{children}</div>;
-}
+};
 
 type Option = { value: IconType; label: ReactNode };
 
@@ -76,11 +83,29 @@ function App() {
     );
   };
 
+  const onClickAdd = () => {
+    set((store) => ({
+      ...store,
+      storeIcons: [
+        ...store.storeIcons,
+        { name: '', type: store.adminDefaultIcon },
+      ],
+    }));
+  };
+
+  const onClickDeleteFn = (index: number) => () => {
+    set((store) => ({
+      ...store,
+      storeIcons: store.storeIcons.filter((_, i) => i !== index),
+    }));
+  };
+
   return (
     <div className="w-96 px-8 py-4">
       <Grid>
         <LabelCell>Shopify Partners</LabelCell>
         <SelectCell>
+          {' '}
           <Select
             value={options.find((o) => o.value === store.partnerIcon)}
             options={options}
@@ -106,21 +131,41 @@ function App() {
         <SectionCell>
           <div className="text-base">Stores</div>
         </SectionCell>
-        <>
-          <DeleteButtonCell>
-            <button className="bg-rose-50 hover:bg-rose-100 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">x</button>
-          </DeleteButtonCell>
-          <InputCell>
-            <input className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" />
-          </InputCell>
-          <SelectCell>
-            <Select
-              value={options.find((o) => o.value === store.adminDefaultIcon)}
-              options={options}
-              onChange={onChangeAdminDefaultIcon}
-            />
-          </SelectCell>
-        </>
+        {store.storeIcons.map((storeIcon, index) => (
+          <React.Fragment key={index}>
+            <DeleteButtonCell>
+              <button
+                className="bg-rose-50 hover:bg-rose-100 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="button"
+                onClick={onClickDeleteFn(index)}
+              >
+                x
+              </button>
+            </DeleteButtonCell>
+            <InputCell>
+              <input
+                className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                value={storeIcon.name}
+              />
+            </InputCell>
+            <SelectCell>
+              <Select
+                value={options.find((o) => o.value === storeIcon.type)}
+                options={options}
+                onChange={onChangeAdminDefaultIcon}
+              />
+            </SelectCell>
+          </React.Fragment>
+        ))}
+        <SectionCell>
+          <button
+            className="bg-blue-50 hover:bg-blue-100 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="button"
+            onClick={onClickAdd}
+          >
+            Add
+          </button>
+        </SectionCell>
       </Grid>
     </div>
   );
