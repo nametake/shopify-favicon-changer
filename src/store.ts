@@ -1,4 +1,4 @@
-import { IconType, isIconType } from "@/type";
+import { IconType, isIconType } from "@/types";
 
 const STORAGE_KEY = 'SHOPIFY_FAVICON_CHANGER_STORAGE'
 
