@@ -1,10 +1,15 @@
-import '@/App.css'
-
 function App() {
   return (
-    <h1 className="text-3xl font-bold underline text-blue-600/100">
-      Hello world!
-    </h1>
+    <div className="w-96 px-8 py-4">
+      <div className="grid grid-cols-5">
+        <div className="col-span-4">Shopify Partners</div>
+        <div className="col-span-1"><input className="w-auto" /></div>
+        <div className="col-span-4">.dev</div>
+        <div className="col-span-1"><input className="w-auto" /></div>
+        <div className="col-span-4">Store Default</div>
+        <div className="col-span-1"><input className="w-auto" /></div>
+      </div>
+    </div>
   )
 }
 
