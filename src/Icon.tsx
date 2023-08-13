@@ -1,12 +1,6 @@
-import blueIcon from '@/assets/blue.png';
-import orangeIcon from '@/assets/orange.png';
-import pinkIcon from '@/assets/pink.png';
-import purpleIcon from '@/assets/purple.png';
-import redIcon from '@/assets/red.png';
-import skyblueIcon from '@/assets/skyblue.png';
-import yellowIcon from '@/assets/yellow.png';
 import { IconType } from '@/types';
 import { assertNever } from '@/utils';
+import { icons } from '@/icons';
 
 type IconImgProps = {
   type: IconType;
@@ -26,19 +20,13 @@ export function Icon({ type }: IconProps) {
     case 'DEFAULT':
       return 'DEFAULT';
     case 'BLUE':
-      return <IconImg type={type} src={blueIcon} />;
     case 'ORANGE':
-      return <IconImg type={type} src={orangeIcon} />;
     case 'PINK':
-      return <IconImg type={type} src={pinkIcon} />;
     case 'PURPLE':
-      return <IconImg type={type} src={purpleIcon} />;
     case 'RED':
-      return <IconImg type={type} src={redIcon} />;
     case 'SKYBLUE':
-      return <IconImg type={type} src={skyblueIcon} />;
     case 'YELLOW':
-      return <IconImg type={type} src={yellowIcon} />;
+      return <IconImg type={type} src={icons.get(type) ?? ''} />;
     default:
       return assertNever(type);
   }

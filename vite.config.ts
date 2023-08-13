@@ -26,6 +26,16 @@ const manifest = defineManifest({
       matches: ['https://shopify.dev/*'],
     },
   ],
+  web_accessible_resources: [
+    {
+      resources: ['assets/*.png'],
+      matches: [
+        'https://admin.shopify.com/*',
+        'https://partners.shopify.com/*',
+        'https://shopify.dev/*',
+      ],
+    },
+  ],
 });
 
 // https://vitejs.dev/config/

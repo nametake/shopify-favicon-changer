@@ -38,7 +38,7 @@ export const initStore: Store = {
   storeIcons: [],
 };
 
-const getStore = async (): Promise<Store> => {
+export const getStore = async (): Promise<Store> => {
   const store = (await chrome.storage.sync.get([STORAGE_KEY]))[STORAGE_KEY];
   if (!isStore(store)) {
     return initStore;
