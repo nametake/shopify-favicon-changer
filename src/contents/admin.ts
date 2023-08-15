@@ -23,4 +23,5 @@ const main = async () => {
   }
 };
 
-main();
+const observer = new MutationObserver(() => main());
+observer.observe(document.body, { childList: true, subtree: true });
