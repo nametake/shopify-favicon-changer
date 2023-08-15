@@ -7,6 +7,8 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v3
         with:
@@ -15,7 +17,7 @@ jobs:
         with:
           cache: yarn
       - run: yarn install
-      - run: echo "RELEASE_VERSION=${REF##*/v}" >> $GITHUB_ENV
+      - run: echo "RELEASE_VERSION=${GITHUB_REF##*/v}" >> $GITHUB_ENV
       - run: echo $RELEASE_VERSION
       - run: yarn build
       - run: zip -r -j shopify-favicon-changer.zip ./dist/*
