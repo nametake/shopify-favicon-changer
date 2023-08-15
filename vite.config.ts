@@ -6,7 +6,7 @@ import { crx, defineManifest } from '@crxjs/vite-plugin';
 const manifest = defineManifest({
   manifest_version: 3,
   name: 'Shopify Favicon Changer',
-  version: '0.0.1',
+  version: process.env.RELEASE_VERSION,
   action: {
     default_popup: 'index.html',
     default_icon: 'icon.png',
